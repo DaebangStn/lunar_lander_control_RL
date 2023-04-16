@@ -1,3 +1,6 @@
+import os.path
+import sys
+
 import gymnasium as gym
 
 
@@ -6,9 +9,13 @@ import numpy as np
 
 def test_already_trained_model(env=None):
     if env is None:
-        env = gym.make('CartPole-v0', render_mode='human')
+        env = gym.make('CartPole-v1', render_mode='human')
 
-    trained_model = keras.models.load_model('saved_modelstrained_model.h5')
+    if not os.path.exists('saved_models/trained_model.h5'):
+        sys.exit("No trained model found, please train the model first")
+
+    print("Load already trained model")
+    trained_model = keras.models.load_model('saved_models/trained_model.h5')
 
     rewards_list = []
     num_test_episodes = 10
