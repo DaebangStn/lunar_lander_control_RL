@@ -90,7 +90,6 @@ class DQN:
             state = np.reshape(state[0], [1, self.num_observation_space])
 
             for step in range(num_steps):
-                #self.env.render()
                 received_action = self.get_action(state)
                 #print("Received action: {}".format(received_action))
 

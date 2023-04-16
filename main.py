@@ -7,6 +7,7 @@ import pickle
 import tensorflow as tf
 
 from DQN import DQN
+from CartPole_reward_1 import CartPole_reward_1
 from plots import plot_df
 from run_experiments import run_experiment_for_gamma, run_experiment_for_lr, run_experiment_for_epsilon_decay
 from test_already_trained_model import test_already_trained_model
@@ -14,16 +15,26 @@ from test_already_trained_model import test_already_trained_model
 
 if __name__ == '__main__':
     print(f'\n{tf.config.list_physical_devices("GPU")}\n')
-    env = gym.make('CartPole-v0', render_mode='human')
+
+    gym.envs.register(
+        id='CartPole-v0-reward-1',
+        entry_point='CartPole_reward_1:CartPole_reward_1',
+        max_episode_steps=1000,
+    )
+
+    #env = gym.make('CartPole-v0-reward-1')
+    env = gym.make('CartPole-v0-reward-1', render_mode='human')
+    #env = gym.make('CartPole-v0')
+    #env = gym.make('CartPole-v0', render_mode='human')
 
     env.action_space.seed(21)
     np.random.seed(21)
 
     lr = 0.001
     epsilon = 1.0
-    epsilon_decay = 0.997
+    epsilon_decay = 0.995
     gamma = 0.99
-    num_episodes = 700
+    num_episodes = 100
 
     print("Start training")
     model = DQN(env, lr, gamma, epsilon, epsilon_decay)
@@ -39,7 +50,7 @@ if __name__ == '__main__':
     plot_df(reward_df, 'Rewards form each testing episode', 'Rewards form each testing episode', 'Episode', 'Reward')
     print("Finish training and testing")
 
-    test_already_trained_model()
+    test_already_trained_model(env)
 
 '''
     run_experiment_for_gamma()
