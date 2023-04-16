@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import pickle
 
-from DQN import DQN
+from agents.DQN import DQN
 from plots import plot_experiments
 
 def run_experiment_for_gamma():

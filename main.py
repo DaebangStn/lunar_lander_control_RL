@@ -6,10 +6,8 @@ import pandas as pd
 import pickle
 import tensorflow as tf
 
-from DQN import DQN
-from CartPole_reward_1 import CartPole_reward_1
+from agents.DQN import DQN
 from plots import plot_df
-from run_experiments import run_experiment_for_gamma, run_experiment_for_lr, run_experiment_for_epsilon_decay
 from test_already_trained_model import test_already_trained_model
 
 
@@ -18,7 +16,7 @@ if __name__ == '__main__':
 
     gym.envs.register(
         id='CartPole-v0-reward-1',
-        entry_point='CartPole_reward_1:CartPole_reward_1',
+        entry_point='envs.CartPole_rewards:CartPole_reward_1',
         max_episode_steps=1000,
     )
 
